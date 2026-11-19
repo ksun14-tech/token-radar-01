@@ -3,13 +3,59 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Token Radar: pre-token protocols ranked by implied value</title>
-<meta name="description" content="A token launch radar: protocols that record no token yet, ranked by the value a token would carry if it launched against today's record, fitted from comparable launches.">
+<title>Token Launch Radar — pre-token protocols ranked by implied value</title>
+<meta name="description" content="Protocols that have not issued a token, ranked by what a launch would be worth against today's record, fitted from comparable launches in the same snapshot.">
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
-<a class="skip" href="#board">Skip to the board</a>
-<main id="board" tabindex="-1" aria-busy="true"></main>
+<header class="masthead">
+  <h1>Token Launch Radar</h1>
+  <p class="tagline">What would a token be worth if each of these protocols launched one today? Fitted from the launches that already happened — never a flat multiple of TVL.</p>
+  <p class="meta" id="meta"></p>
+</header>
+
+<section class="panel" id="model-panel" aria-label="How the model works"></section>
+
+<nav class="tabs" aria-label="Views">
+  <button type="button" id="tab-pre" class="tab active">Pre-token board</button>
+  <button type="button" id="tab-live" class="tab">Already trading</button>
+</nav>
+
+<section class="controls" aria-label="Filters">
+  <label>Search <input type="search" id="q" placeholder="name or slug"></label>
+  <label>Category <select id="f-cat"></select></label>
+  <label>Chain <select id="f-chain"></select></label>
+  <label>TVL
+    <select id="f-tvl">
+      <option value="">Any size</option>
+      <option value="1000000000">$1B and up</option>
+      <option value="250000000">$250M and up</option>
+      <option value="50000000">$50M and up</option>
+      <option value="5000000">$5M and up</option>
+    </select>
+  </label>
+  <label class="check"><input type="checkbox" id="f-watch"> Watchlist only</label>
+  <label>Sort
+    <select id="f-sort">
+      <option value="value">Implied value</option>
+      <option value="tvl">TVL</option>
+      <option value="growth">7d growth</option>
+      <option value="age">Age</option>
+    </select>
+  </label>
+  <span class="count" id="count"></span>
+</section>
+
+<main>
+  <table class="board" id="board" aria-label="Ranked protocols"></table>
+  <table class="board hidden" id="live" aria-label="Already trading protocols"></table>
+</main>
+
+<aside class="drawer hidden" id="drawer" aria-label="Protocol detail"></aside>
+<div class="scrim hidden" id="scrim"></div>
+
+<footer class="foot" id="foot"></footer>
+
 <script src="../data.js"></script>
 <script src="app.js"></script>
 </body>
